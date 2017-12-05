@@ -12,7 +12,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <div id="app">
+        <div id="app" class="h-screen flex items-center justify-center bg-teal-lightest font-sans">
             <todo-component></todo-component>
         </div>
 
