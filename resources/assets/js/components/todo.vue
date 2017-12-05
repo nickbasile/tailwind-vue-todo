@@ -36,7 +36,7 @@
                 finished: false,
               }
 
-              t.todos.push(todo);
+              t.todos.unshift(todo);
 
               t.newTodo = '';
               t.baseId++;
