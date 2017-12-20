@@ -10,11 +10,11 @@ class TodoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function index()
     {
-        //
+        return response(Todo::latest()->get(), 200);
     }
 
     /**
@@ -35,7 +35,14 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'text' => 'required',
+            'finished' => 'required|boolean',
+        ]);
+
+        $todo = Todo::create($data);
+
+        return response($todo, 200);
     }
 
     /**
@@ -69,7 +76,7 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+
     }
 
     /**
