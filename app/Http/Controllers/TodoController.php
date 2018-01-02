@@ -32,7 +32,7 @@ class TodoController extends Controller
 
         $todo = Todo::create($data);
 
-        return response($todo, 200);
+        return response($todo, 201);
     }
 
     /**
@@ -68,11 +68,14 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Todo  $todo
+     * @param  \App\Todo $todo
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+
+        return response('Deleted Succesfully', 200);
     }
 }
