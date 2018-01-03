@@ -8,11 +8,7 @@
             </div>
         </div>
         <div class="max-h-screen-1/2 overflow-y-scroll">
-            <div class="flex mb-4 items-center" v-for="(todo, index) in todos" :key="todo.id">
-                <input type="checkbox" class="mr-2" @click="updateStatus(todo)">
-                <p class="w-full" :class="todo.finished ? 'line-through text-green' : 'text-grey-darkest'">{{todo.text}}</p>
-                <button class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red" @click="remove(index)">Remove</button>
-            </div>
+            <todo-item v-for="(todo, index) in todos" :key="todo.id" :todo="todo" :index="index"></todo-item>
             <div v-show="todos.length === 0">
                 <p class="w-full text-center text-grey-dark">There are no todos</p>
             </div>
@@ -21,6 +17,7 @@
 </template>
 
 <script>
+    import todoItem from './todo-item'
     export default{
         data(){
             return{
@@ -30,6 +27,7 @@
         },
         created() {
           this.getTodos();
+          this.initListeners();
         },
         methods: {
             getTodos() {
@@ -57,14 +55,36 @@
                   t.baseId++;
               }
             },
-            updateStatus(todo) {
-              todo.finished = !todo.finished;
-            },
-            remove(index) {
+            initListeners() {
               const t = this;
 
-              t.todos.splice(index, 1);
+              bus.$on('update-todo', function (details) {
+                t.update(details);
+              })
+
+              bus.$on('remove-todo', function (details) {
+                t.remove(details);
+              })
+            },
+            update(details) {
+              const t = this;
+
+              axios.patch('/todos/'+ details.id, details.data)
+                  .then(({data}) => {
+                    t.todos.splice(details.index, 1, data)
+                  })
+            },
+            remove(details) {
+              const t = this;
+
+              axios.delete('/todos/'+ details.id)
+                .then(() => {
+                  t.todos.splice(details.index, 1)
+                })
             }
+        },
+        components: {
+          todoItem
         }
     }
 </script>
