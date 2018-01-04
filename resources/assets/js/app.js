@@ -17,7 +17,7 @@ window.bus = new Vue();
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('todo-component', require('./components/todo.vue'));
+Vue.component('todo-list', require('./components/todo-list.vue'));
 
 const app = new Vue({
     el: '#app'
