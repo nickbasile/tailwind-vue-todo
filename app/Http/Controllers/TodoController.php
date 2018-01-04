@@ -18,16 +18,6 @@ class TodoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,7 +32,7 @@ class TodoController extends Controller
 
         $todo = Todo::create($data);
 
-        return response($todo, 200);
+        return response($todo, 201);
     }
 
     /**
@@ -53,18 +43,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Todo $todo)
-    {
-        //
+        return response($todo, 200);
     }
 
     /**
@@ -76,17 +55,27 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+        $data = $request->validate([
+            'text' => 'required',
+            'finished' => 'required|boolean',
+        ]);
 
+        $todo->update($data);
+
+        return response($todo, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Todo  $todo
+     * @param  \App\Todo $todo
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+
+        return response('Deleted Succesfully', 200);
     }
 }
