@@ -7,16 +7,23 @@
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "test-js": "mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require tests/Vue/setup.js tests/Vue/**/*.spec.js"
     },
     "devDependencies": {
         "axios": "^0.17",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.1",
+        "expect": "^22.0.5",
         "jquery": "^3.2",
+        "jsdom": "^11.5.1",
+        "jsdom-global": "^3.0.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
+        "mocha": "^4.1.0",
+        "mocha-webpack": "^1.0.1",
         "tailwindcss": "^0.3.0",
-        "vue": "^2.5.7"
+        "vue": "^2.5.7",
+        "vue-test-utils": "^1.0.0-beta.9"
     }
 }
