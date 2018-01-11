@@ -20,7 +20,9 @@ class TodoTest extends TestCase
             ->assertJson($todos->toArray());
     }
 
-    /** @test */
+    /** @test
+     * @throws \Exception
+     */
     public function can_get_all_the_todos_in_the_correct_order()
     {
         $todo_one = factory('App\Todo')->create([
