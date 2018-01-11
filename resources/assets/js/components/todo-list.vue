@@ -9,7 +9,7 @@
         </div>
         <div class="max-h-screen-1/2 overflow-y-scroll">
             <todo-item v-for="(todo, index) in todos" :key="todo.id" :todo="todo" :index="index"></todo-item>
-            <div v-show="todos.length === 0">
+            <div v-if="todos.length === 0">
                 <p class="w-full text-center text-grey-dark">There are no todos</p>
             </div>
         </div>
